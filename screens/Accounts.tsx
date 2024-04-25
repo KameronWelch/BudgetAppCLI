@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Platform, View, Text, StyleSheet,TouchableOpacity, FlatList  } from 'react-native';
+import { Platform, View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { PlaidLink, LinkExit, LinkSuccess } from 'react-native-plaid-link-sdk';
 
 
@@ -54,7 +54,7 @@ const Accounts = ({ navigation }: any) => {
 
   // const renderAccounts = () => {
   //   if (!data || !data.Balance || !data.Balance.accounts) return null;
-  
+
   //   return data.Balance.accounts.map(account => (
   //     <View key={account.account_id} style={styles.accountRow}>
   //       <Text style={styles.bankNameText}>{account.name}</Text>
@@ -63,12 +63,20 @@ const Accounts = ({ navigation }: any) => {
   //   ));
   // };
 
+  // Your default text to display when the FlatList is empty
+  const renderEmptyComponent = () => (
+    <View style={styles.emptyRender}>
+      <Text style={styles.emptyRenderText}>Looks like you haven't added an account yet.</Text>
+      <Text style={styles.emptyRenderText}>Click the Add Account button to get started!</Text>
+    </View>
+  );
+
   const renderItem = ({ item }) => (
     <TouchableOpacity>
-    <View style={styles.accountRow}>
-      <Text style={styles.bankNameText}>{item.name}</Text>
-      <Text style={styles.bankAmount}>{item.balances.current}</Text>
-    </View>
+      <View style={styles.accountRow}>
+        <Text style={styles.bankNameText}>{item.name}</Text>
+        <Text style={styles.bankAmount}>{item.balances.current}</Text>
+      </View>
     </TouchableOpacity>
 
   );
@@ -80,8 +88,9 @@ const Accounts = ({ navigation }: any) => {
         <Text style={styles.title}>$0.00</Text>
       </View>
       <View >
-      <View>
-        {/* <Text style={{    
+        <View>
+
+          {/* <Text style={{    
           fontSize: 12,
     fontWeight: 'bold',
     color: "gray",
@@ -91,13 +100,15 @@ const Accounts = ({ navigation }: any) => {
             JSON.stringify(data)
           }
         </Text> */}
-        {/* {renderAccounts()} */}
-        <FlatList
-        data={data?.Balance?.accounts || []}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.account_id}
-      />
-      </View>
+          {/* {renderAccounts()} */}
+
+          <FlatList
+            data={data?.Balance?.accounts || []}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.account_id}
+            ListEmptyComponent={renderEmptyComponent}
+          />
+        </View>
         <PlaidLink
           tokenConfig={{
             token: linkToken,
@@ -123,9 +134,9 @@ const Accounts = ({ navigation }: any) => {
           {/* <View>
             <Text>Open Link</Text>
           </View> */}
-          
-            <Text style={styles.buttonText}>Add Account</Text>
-          
+
+          <Text style={styles.buttonText}>Add Account</Text>
+
         </PlaidLink>
       </View>
       {/* <View>
@@ -199,9 +210,21 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#0047AB',
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
     justifyContent: 'center',
-    
+    alignSelf: 'center'
+
+  },
+  emptyRender: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  emptyRenderText: {
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    fontSize: 16,
   },
 });

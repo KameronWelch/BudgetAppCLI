@@ -20,6 +20,7 @@ import ResetPassword from './screens/ResetPassword'
 import Profile from './screens/Profile'
 import MyAccount from './screens/MyAccount'
 import SuccessScreen from './screens/SuccessScreen';
+import NewBudget from './screens/NewBudget';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -108,6 +109,7 @@ function BudgetsStackScreen() {
         },
       }}>
       <Stack.Screen name="Budgets" component={Budgets} />
+      <Stack.Screen name="NewBudget" component={NewBudget} />
     </Stack.Navigator>
   );
 }
