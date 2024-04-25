@@ -22,7 +22,7 @@ const Reports = () => {
 
   const handleSubmit = () => {
     if (goal !== '') {
-      const newGoal = { id: Date.now(), goal: goal, color: getRandomColor()};
+      const newGoal = { id: Date.now(), goal: goal, color: getRandomColor() };
       setSubmittedGoals([...submittedGoals, newGoal]);
       setGoal('');
     }
@@ -43,34 +43,43 @@ const Reports = () => {
   };
 
   const renderGoalItem = ({ item }) => (
-    <View style={styles.itemContainer}>
-      <View style={[styles.colorDot, { backgroundColor: item.color }]}></View>
-      <View style={styles.itemContent}>
-        <Text style={styles.itemText}>Goals: {item.goal}</Text>
-        <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item.id)}>
-          <Text style={styles.deleteButtonText}>Delete</Text>
-        </TouchableOpacity>
+    <View style={styles.infoView}>
+
+      <View style={styles.itemRow}>
+        <View style={[styles.colorDot, { backgroundColor: item.color }]}></View>
+        <Text style={styles.itemText}>Goal: {item.goal}</Text>
       </View>
+      <TouchableOpacity style={styles.deleteButton} onPress={() => handleDelete(item.id)}>
+          <Text style={styles.deleteButtonText}>Delete Goal</Text>
+        </TouchableOpacity>
     </View>
   );
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* Enter Goal */}
-      <Text>Enter a Goal</Text>
-      <TextInput
-        value={goal}
-        onChangeText={handleGoalChange}
-        placeholder={'Enter goal'}
-        style={styles.inputStyle}
-      />
-      
+    <View style={styles.container}>
+      <View style={styles.infoView}>
+        {/* Enter Goal */}
+        <Text style={styles.title}>Enter a Financial Goal</Text>
+        <Text style={styles.subtitle}>Financial Goals help to keep track of your most important money goals.</Text>
+
+        <TextInput
+          value={goal}
+          onChangeText={handleGoalChange}
+          placeholder={'Type here to enter a goal'}
+          style={styles.input}
+        />
+      </View>
+
+
       {/* Submit Button */}
-      <Button
+      <TouchableOpacity style={styles.addGoalButton} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Add Goal</Text>
+      </TouchableOpacity>
+      {/* <Button
         title='Submit'
         onPress={handleSubmit}
-      />
-      
+      /> */}
+
       {/* Display the submitted goals */}
       <FlatList
         data={submittedGoals}
@@ -82,17 +91,34 @@ const Reports = () => {
 };
 
 const styles = StyleSheet.create({
-  inputStyle: {
-    width: '80%',
-    height: 44,
-    padding: 10,
-    marginVertical: 10,
+  container: {
+    flex: 1,
+    //backgroundColor: "#fff",
+    justifyContent: 'center',
+  },
+  infoView: {
+    padding: 10
+  },
+  input: {
+    //backgroundColor: "#F6F7FB",
+    backgroundColor: "white",
+    height: 58,
+    marginBottom: 20,
+    fontSize: 16,
+    borderRadius: 10,
+    padding: 12,
   },
   itemContainer: {
     marginTop: 20,
   },
+  itemRow: {
+    flexDirection: 'row',
+  },
   itemText: {
     fontSize: 18,
+    fontWeight: 'bold',
+    color: "gray",
+    alignSelf: "baseline",
   },
   deleteButton: {
     backgroundColor: 'red',
@@ -110,6 +136,39 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5, // Make it a circle
     marginRight: 10, // Add some margin to separate the dot and the text
+    marginTop:7,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: "#0047AB",
+    alignSelf: "stretch",
+    paddingBottom: 12,
+    //paddingLeft: 24,
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: "gray",
+    alignSelf: "baseline",
+    paddingBottom: 12,
+    //paddingLeft: 24,
+  },
+  addGoalButton: {
+    backgroundColor: '#0047AB',
+    borderRadius: 10,
+    height: 58,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    marginTop: 10,
+    paddingTop: 15,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingBottom: 15,
   },
 });
 

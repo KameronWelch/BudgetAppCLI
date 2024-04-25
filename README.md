@@ -57,10 +57,11 @@ Now that you have successfully run the app, let's modify it.
 
 ## Step 4: Running the Server
 
-To run the Server for the plaidlink implementation type the follownig in the terminal:
+```bash
+#To run the Server for the plaidlink implementation type the follownig in the terminal:
 
 node server.js
-
+```
 
 
 ## Congratulations! :tada:

@@ -57,15 +57,44 @@ export default function Budgets() {
         <Text style={styles.emptyRenderText}>Click the Add New Budget button to get started!</Text>
       </View>
     );
-    // Render individual budget item
-    const renderBudgetItem = ({ item }) => (
+    // // Render individual budget item
+    // const renderBudgetItem = ({ item }) => (
+    //   <View style={styles.card}>
+    //     <Text style={styles.cardText}>Category: {item.category}</Text>
+    //     <Text style={styles.cardText}>Frequency: {item.frequency}</Text>
+    //     <Text style={styles.cardText}>Amount: {item.amount} left out of {item.amount}</Text>
+    //   </View>
+    // );
+
+    const renderBudgetItem = ({ item, index }) => (
       <View style={styles.card}>
         <Text style={styles.cardText}>Category: {item.category}</Text>
         <Text style={styles.cardText}>Frequency: {item.frequency}</Text>
         <Text style={styles.cardText}>Amount: {item.amount} left out of {item.amount}</Text>
+        <TouchableOpacity style={styles.deleteButton} onPress={() => handleDeleteBudget(index)}>
+          <Text style={styles.deleteButtonText}>Delete</Text>
+        </TouchableOpacity>
       </View>
     );
-
+    
+    const handleDeleteBudget = async (budgetIndex) => {
+      try {
+        const userId = auth.currentUser.uid;
+        const userRef = doc(db, 'users', userId);
+        const userDoc = await getDoc(userRef);
+    
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          const budgets = userData.budgets || [];
+          const updatedBudgets = [...budgets.slice(0, budgetIndex), ...budgets.slice(budgetIndex + 1)];
+          
+          await setDoc(userRef, { budgets: updatedBudgets }, { merge: true });
+          setUserBudgets(updatedBudgets); // Update state to reflect the deleted budget
+        }
+      } catch (error) {
+        console.error('Error deleting budget:', error);
+      }
+    };
   return (
     <View style={styles.container}>
       
