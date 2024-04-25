@@ -31,6 +31,7 @@ export default function SignUp({ navigation }) {
     setSecureTextEntry(prevState => !prevState);
   };
 
+
   //Function that takes in Signup Variables and creates the account
   //firebase auth takes in mail and password and firestore db takes in extra user information
   const signUp = async () => {
