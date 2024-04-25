@@ -7,6 +7,7 @@ import { PlaidLink, LinkExit, LinkSuccess } from 'react-native-plaid-link-sdk';
 const Accounts = ({ navigation }: any) => {
   const [linkToken, setLinkToken] = useState(null);
   const [data, setData] = useState(null);
+  const [totalBalance, setTotalBalance] = useState(0);
 
   const address = Platform.OS === 'ios' ? 'localhost' : '10.0.2.2';
 
@@ -39,12 +40,25 @@ const Accounts = ({ navigation }: any) => {
       .then((data) => {
         console.log("Received data:", data);
         setData(data);
+        calculateTotalBalance(data);
       })
       .catch((err) => {
         console.log(err);
       });
   });
 
+  const calculateTotalBalance = (data) => {
+    if (!data || !data.Balance || !data.Balance.accounts) {
+      setTotalBalance(0);
+      return;
+    }
+
+    let total = 0;
+    data.Balance.accounts.forEach(account => {
+      total += account.balances.current || 0;
+    });
+    setTotalBalance(total);
+  };
 
   useEffect(() => {
     if (linkToken == null) {
@@ -75,7 +89,7 @@ const Accounts = ({ navigation }: any) => {
     <TouchableOpacity>
       <View style={styles.accountRow}>
         <Text style={styles.bankNameText}>{item.name}</Text>
-        <Text style={styles.bankAmount}>{item.balances.current}</Text>
+        <Text style={styles.bankAmount}>${item.balances.current}.00</Text>
       </View>
     </TouchableOpacity>
 
@@ -85,7 +99,7 @@ const Accounts = ({ navigation }: any) => {
     <View style={styles.container}>
       <View>
         <Text style={styles.subtitle}>Your total available balance is</Text>
-        <Text style={styles.title}>$0.00</Text>
+        <Text style={styles.title}>${totalBalance.toFixed(2)}</Text>
       </View>
       <View >
         <View>
@@ -131,11 +145,9 @@ const Accounts = ({ navigation }: any) => {
           onExit={(response: LinkExit) => {
             console.log(response);
           }}>
-          {/* <View>
-            <Text>Open Link</Text>
-          </View> */}
 
-          <Text style={styles.buttonText}>Add Account</Text>
+          
+            <Text style={styles.addAccountButton}>Add Account</Text>
 
         </PlaidLink>
       </View>
@@ -181,10 +193,13 @@ const styles = StyleSheet.create({
   accountRow: {
     //backgroundColor: "#fff",
     flexDirection: 'row',
+    justifyContent: "space-between",
     gap: 20,
     alignItems: 'center',
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: 'grey',
+
+    padding: 10,
 
 
 
@@ -199,21 +214,13 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     marginLeft: 20, // Adjusted margin for space between the two sides
   },
-  addAccountButton: {
-    backgroundColor: '#0047AB',
-    borderRadius: 10,
-    height: 58,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 20,
-    marginTop: 10,
-  },
   buttonText: {
-    color: '#0047AB',
+    color: 'white',
     fontSize: 25,
     fontWeight: 'bold',
     justifyContent: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    
 
   },
   emptyRender: {
@@ -227,4 +234,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 16,
   },
+  addAccountButton: {
+    backgroundColor: '#0047AB',
+    borderRadius: 10,
+    height: 58,
+    marginHorizontal: 20,
+    marginTop: 10,
+    color: 'white',
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: "center",
+    paddingTop: 10,
+    
+},
 });

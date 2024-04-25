@@ -21,6 +21,7 @@ import Profile from './screens/Profile'
 import MyAccount from './screens/MyAccount'
 import SuccessScreen from './screens/SuccessScreen';
 import NewBudget from './screens/NewBudget';
+import Notifications from './screens/Notifications';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -53,6 +54,7 @@ function SettingsStackScreen() {
       }}>
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
+      <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );
 }

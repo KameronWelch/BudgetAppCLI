@@ -80,7 +80,7 @@ export default function Dashboard() {
         <Text style={styles.cardContent}>Left out of $50,000 budgeted</Text>
       </View> */}
 
-      <Text style={styles.sectionTitle}>Budget</Text>
+      <Text style={styles.sectionTitle}>Budget Overview</Text>
       <View style={styles.card}>
         <Text style={styles.cardTitle}>You Have: </Text>
         {/* <Text style={styles.cardContent}>$1,500</Text> */}
@@ -128,7 +128,7 @@ export default function Dashboard() {
 
           <View style={{ flex: 1 }}>
             <Text style={styles.transactionTitle}>Kameron Welch </Text>
-            <Text style={styles.transactionText}>Bank Name </Text>
+            <Text style={styles.transactionText}>Plaid Checking </Text>
           </View>
 
           <View>
@@ -143,7 +143,7 @@ export default function Dashboard() {
 
           <View style={{ flex: 1 }}>
             <Text style={styles.transactionTitle}>Kameron Welch </Text>
-            <Text style={styles.transactionText}>Bank Name </Text>
+            <Text style={styles.transactionText}>Plaid Checking </Text>
           </View>
 
           <View>
@@ -158,11 +158,11 @@ export default function Dashboard() {
 
           <View style={{ flex: 1 }}>
             <Text style={styles.transactionTitle}>Kameron Welch </Text>
-            <Text style={styles.transactionText}>Bank Name </Text>
+            <Text style={styles.transactionText}>Plaid Savings </Text>
           </View>
 
           <View>
-            <Text style={[styles.transactionAmount, { color: 'red' }]}>-$298.00 </Text>
+            <Text style={[styles.transactionAmount, { color: 'red' }]}>- $298.00 </Text>
           </View>
         </TouchableOpacity>
 
@@ -173,7 +173,7 @@ export default function Dashboard() {
 
           <View style={{ flex: 1 }}>
             <Text style={styles.transactionTitle}>Kameron Welch </Text>
-            <Text style={styles.transactionText}>Bank Name </Text>
+            <Text style={styles.transactionText}>Plaid Savings </Text>
           </View>
 
           <View>

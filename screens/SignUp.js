@@ -91,7 +91,7 @@ export default function SignUp({ navigation }) {
       <View style={styles.whiteSheet} />
       <SafeAreaView style={styles.form}>
 
-        <Text style={styles.title}>Welcome to ____</Text>
+        <Text style={styles.title}>Welcome</Text>
         <Text style={styles.subtitle}>Complete the sign up to get started</Text>
 
         <TextInput

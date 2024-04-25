@@ -148,6 +148,9 @@ export default function Settings() {
   const goToResetPasswordScreen = () => {
     navigation.navigate('ResetPassword');
   };
+  const goToNotificationsScreen = () => {
+    navigation.navigate('Notifications');
+  };
   //screenOptions={{headerShown: false }}
   return (
     <SafeAreaView style={styles.container}>
@@ -180,7 +183,7 @@ export default function Settings() {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.settingButton}>
+        <TouchableOpacity style={styles.settingButton} onPress={goToNotificationsScreen}>
           <View>
             <Icon name="notifications-outline" size={24} color="gray" />
           </View>
